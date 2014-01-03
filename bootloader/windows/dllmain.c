@@ -10,10 +10,11 @@
 
 
 /*
- * Bootloader for a DLL COM server.
+ * Bootloader for a DLL 
  */
 
 
+#include "dllmain.h"
 #include <windows.h>
 #include <olectl.h>  // callSimpleEntryPoint
 #include <memory.h>
@@ -39,21 +40,9 @@
 #include "utils.h"  // CreateActContext, ReleaseActContext
 
 
-typedef int (__stdcall *__PROC__DllCanUnloadNow) (void);
-__PROC__DllCanUnloadNow Pyc_DllCanUnloadNow = NULL;
-typedef HRESULT (__stdcall *__PROC__DllGetClassObject) (REFCLSID, REFIID, LPVOID *);
-__PROC__DllGetClassObject Pyc_DllGetClassObject = NULL;
-typedef int (__cdecl *__PROC__DllRegisterServerEx) (const char *);
-__PROC__DllRegisterServerEx Pyc_DllRegisterServerEx = NULL;
-typedef int (__cdecl *__PROC__DllUnregisterServerEx) (const char *);
-__PROC__DllUnregisterServerEx Pyc_DllUnregisterServerEx = NULL;
-typedef void (__cdecl *__PROC__PyCom_CoUninitialize) (void);
-__PROC__PyCom_CoUninitialize PyCom_CoUninitialize = NULL;
 
 HINSTANCE gPythoncom = 0;
 char here[PATH_MAX + 1];
-int LoadPythonCom(ARCHIVE_STATUS *status);
-void releasePythonCom(void);
 HINSTANCE gInstance;
 PyThreadState *thisthread = NULL;
 
@@ -155,7 +144,6 @@ void startUp()
 	//VS(here);
 	//VS(&thisfile[len]);
 	launch(archive_status, here, &thisfile[len]);
-	LoadPythonCom(archive_status);
 	// Now Python is up and running (any scripts have run)
 }
 
@@ -175,118 +163,6 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 	return TRUE; 
 }
 
-int LoadPythonCom(ARCHIVE_STATUS *status)
-{
-	char dllpath[PATH_MAX+1];
-	VS("Loading Pythoncom");
-	// see if pythoncom is already loaded
-	sprintf(dllpath, "pythoncom%02d.dll", pyi_arch_get_pyversion(status));
-	gPythoncom = GetModuleHandleA(dllpath);
-	if (gPythoncom == NULL) {
-		sprintf(dllpath, "%spythoncom%02d.dll", here, pyi_arch_get_pyversion(status));
-		//VS(dllpath);
-		gPythoncom = LoadLibraryExA( dllpath, // points to name of executable module 
-					   NULL, // HANDLE hFile, // reserved, must be NULL 
-					   LOAD_WITH_ALTERED_SEARCH_PATH // DWORD dwFlags // entry-point execution flag 
-					  ); 
-	}
-	if (!gPythoncom) {
-		VS("Pythoncom failed to load");
-		return -1;
-	}
-	// debugging
-	GetModuleFileNameA(gPythoncom, dllpath, PATH_MAX);
-	VS(dllpath);
-
-	Pyc_DllCanUnloadNow = (__PROC__DllCanUnloadNow)GetProcAddress(gPythoncom, "DllCanUnloadNow");
-	Pyc_DllGetClassObject = (__PROC__DllGetClassObject)GetProcAddress(gPythoncom, "DllGetClassObject");
-	// DllRegisterServerEx etc are mainly used for "scripts", so that regsvr32.exe can be run on
-	// a .py file, for example.  They aren't really relevant here.
-	Pyc_DllRegisterServerEx = (__PROC__DllRegisterServerEx)GetProcAddress(gPythoncom, "DllRegisterServerEx");
-	Pyc_DllUnregisterServerEx = (__PROC__DllUnregisterServerEx)GetProcAddress(gPythoncom, "DllUnregisterServerEx");
-	PyCom_CoUninitialize = (__PROC__PyCom_CoUninitialize)GetProcAddress(gPythoncom, "PyCom_CoUninitialize");
-	if (Pyc_DllGetClassObject == NULL) {
-		VS("Couldn't get DllGetClassObject from pythoncom!");
-		return -1;
-	}
-	if (PyCom_CoUninitialize == NULL) {
-		VS("Couldn't get PyCom_CoUninitialize from pythoncom!");
-		return -1;
-	}
-	return 0;
-}
-void releasePythonCom(void)
-{
-	if (gPythoncom) {
-		PyCom_CoUninitialize();
-		FreeLibrary(gPythoncom);
-		gPythoncom = 0;
-	}
-}
-//__declspec(dllexport) int __stdcall DllCanUnloadNow(void)
-//__declspec(dllexport)
-//STDAPI
-HRESULT __stdcall DllCanUnloadNow(void)
-{
-	HRESULT rc;
-
-	VS("DllCanUnloadNow from thread %x", GetCurrentThreadId());
-	if (gPythoncom == 0)
-		startUp();
-	rc = Pyc_DllCanUnloadNow();
-	VS("DllCanUnloadNow returns %x", rc);
-	//if (rc == S_OK)
-	//	PyCom_CoUninitialize();
-	return rc;
-}
-
-//__declspec(dllexport) int __stdcall DllGetClassObject(void *rclsid, void *riid, void *ppv)
-HRESULT __stdcall DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID *ppv)
-{
-	HRESULT rc;
-
-	VS("DllGetClassObject from thread %x", GetCurrentThreadId());
-	if (gPythoncom == 0)
-		startUp();
-	rc = Pyc_DllGetClassObject(rclsid, riid, ppv);
-	VS("DllGetClassObject set %x and returned %x", *ppv, rc);
-
-	return rc;
-}
-
-__declspec(dllexport) int DllRegisterServerEx(LPCSTR fileName)
-{
-	VS("DllRegisterServerEx from thread %x", GetCurrentThreadId());
-	if (gPythoncom == 0)
-		startUp();
-	return Pyc_DllRegisterServerEx(fileName);
-}
-
-__declspec(dllexport) int DllUnregisterServerEx(LPCSTR fileName)
-{
-	if (gPythoncom == 0)
-		startUp();
-	return Pyc_DllUnregisterServerEx(fileName);
-}
-
-STDAPI DllRegisterServer()
-{
-	int rc, pyrc;
-	if (gPythoncom == 0)
-		startUp();
-	PI_PyEval_AcquireThread(thisthread);
-	rc = callSimpleEntryPoint("DllRegisterServer", &pyrc);
-	PI_PyEval_ReleaseThread(thisthread);
-	return rc==0 ? pyrc : SELFREG_E_CLASS;
-}
-
-STDAPI DllUnregisterServer()
-{
-	int rc, pyrc;
-	if (gPythoncom == 0)
-		startUp();
-	PI_PyEval_AcquireThread(thisthread);
-	rc = callSimpleEntryPoint("DllUnregisterServer", &pyrc);
-	PI_PyEval_ReleaseThread(thisthread);
-	return rc==0 ? pyrc : SELFREG_E_CLASS;
+void sayHi(){
+	  PI_PyRun_SimpleString("print('hello world')");
 }
