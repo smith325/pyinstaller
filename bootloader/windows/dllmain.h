@@ -16,10 +16,17 @@
 #define DLLMAIN_H
 #define DLLExport __declspec(dllimport)
 
-
+// MyCFuncs.h
+#ifdef __cplusplus
+extern "C" {  // only need to export C interface if
+              // used by C++ source code
+#endif
 
 DLLExport void startUp();
 DLLExport void sayHi();
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

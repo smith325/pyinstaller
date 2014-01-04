@@ -1,0 +1,118 @@
+# project  configured on Fri Jan 03 14:11:56 2014 by
+# waf 1.5.18 (abi 7, python 20706f0 on win32)
+# using waf configure build install
+#
+
+----------------------------------------
+Checking for program gcc or cc
+  find program=['gcc', 'cc'] paths=[] var='CC'
+  -> ''
+
+----------------------------------------
+Checking for program CL
+  find program=['CL'] paths=['C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\IDE', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\Tools', 'C:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\VCPackages', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var=None
+  -> 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\CL.exe'
+
+----------------------------------------
+Checking for program CL
+  find program=['CL'] paths=['c:\\Program Files\\Microsoft F#\\v4.0\\', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VSTSDB\\Deploy', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Common7\\IDE\\', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN\\x86_ia64', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Common7\\Tools', 'c:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319', 'c:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\VCPackages', 'C:\\Program Files\\HTML Help Workshop', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\bin\\NETFX 4.0 Tools', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var=None
+  -> 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN\\x86_ia64\\CL.exe'
+
+----------------------------------------
+Checking for program CL
+  find program=['CL'] paths=['c:\\Program Files\\Microsoft F#\\v4.0\\', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Common7\\IDE\\', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN\\x86_amd64', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Common7\\Tools', 'c:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319', 'c:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\VCPackages', 'C:\\Program Files\\HTML Help Workshop', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Team Tools\\Performance Tools', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\bin\\NETFX 4.0 Tools', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var=None
+  -> 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN\\x86_amd64\\CL.exe'
+
+----------------------------------------
+Checking for program CL
+  find program=['CL'] paths=['c:\\Program Files\\Microsoft F#\\v4.0\\', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VSTSDB\\Deploy', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Common7\\IDE\\', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Common7\\Tools', 'c:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319', 'c:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\VCPackages', 'C:\\Program Files\\HTML Help Workshop', 'c:\\Program Files\\Microsoft Visual Studio 10.0\\Team Tools\\Performance Tools', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\bin\\NETFX 4.0 Tools', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v7.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var=None
+  -> 'c:\\Program Files\\Microsoft Visual Studio 10.0\\VC\\BIN\\CL.exe'
+
+----------------------------------------
+Checking for program CL
+  find program=['CL'] paths=['C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\IDE', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\Tools', 'C:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\VCPackages', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var='CXX'
+  -> 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\CL.exe'
+
+----------------------------------------
+Checking for program LINK
+  find program=['LINK'] paths=['C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\IDE', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\Tools', 'C:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\VCPackages', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var=None
+  -> 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\LINK.exe'
+
+----------------------------------------
+Checking for program LIB
+  find program=['LIB'] paths=['C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\IDE', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\Tools', 'C:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\VCPackages', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var=None
+  -> 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\LIB.exe'
+
+----------------------------------------
+Checking for program MT
+  find program=['MT'] paths=['C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\IDE', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\Tools', 'C:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\VCPackages', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var=None
+  -> 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin\\MT.exe'
+
+----------------------------------------
+Checking for program RC
+  find program=['RC'] paths=['C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\IDE', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\Common7\\Tools', 'C:\\Windows\\Microsoft.NET\\Framework\\v3.5', 'C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727', 'C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\VCPackages', 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin', '%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\', 'C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\QuickTime\\QTSystem\\', 'C:\\Python27\\', 'C:\\Program Files\\Git\\cmd', 'C:\\Python27'] var='WINRC'
+  -> 'C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\bin\\RC.exe'
+
+----------------------------------------
+Checking for library user32
+==>
+
+int main() {
+	return 0;
+}
+
+<==
+[1/2] [32mcc: build\.conf_check_0\test.c -> build\.conf_check_0\testbuild\default\test_1.o
+[0mtest.c
+['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\CL.exe', '/TC', '/W3', '/nologo', '/IC:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\INCLUDE', '/IC:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\include', '/I../zlib', '/I..\\common', '/DWIN32', '..\\test.c', '/c', '/Fodefault\\test_1.o']
+[2/2] [33mcc_link: build\.conf_check_0\testbuild\default\test_1.o -> build\.conf_check_0\testbuild\default\testprog.exe
+[0m['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\LINK.exe', 'default\\test_1.o', '/OUT:C:\\Users\\Sarah\\Documents\\GitHub\\pyinstaller\\bootloader\\build\\.conf_check_0\\testbuild\\default\\testprog.exe', '/NOLOGO', '/MANIFEST', '/LIBPATH:C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\LIB', '/LIBPATH:C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\lib', 'user32.lib']
+yes
+
+----------------------------------------
+Checking for library comctl32
+==>
+
+int main() {
+	return 0;
+}
+
+<==
+[1/2] [32mcc: build\.conf_check_0\test.c -> build\.conf_check_0\testbuild\default\test_1.o
+[0mtest.c
+['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\CL.exe', '/TC', '/W3', '/nologo', '/IC:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\INCLUDE', '/IC:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\include', '/I../zlib', '/I..\\common', '/DWIN32', '..\\test.c', '/c', '/Fodefault\\test_1.o']
+[2/2] [33mcc_link: build\.conf_check_0\testbuild\default\test_1.o -> build\.conf_check_0\testbuild\default\testprog.exe
+[0m['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\LINK.exe', 'default\\test_1.o', '/OUT:C:\\Users\\Sarah\\Documents\\GitHub\\pyinstaller\\bootloader\\build\\.conf_check_0\\testbuild\\default\\testprog.exe', '/NOLOGO', '/MANIFEST', '/LIBPATH:C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\LIB', '/LIBPATH:C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\lib', 'comctl32.lib']
+yes
+
+----------------------------------------
+Checking for library kernel32
+==>
+
+int main() {
+	return 0;
+}
+
+<==
+[1/2] [32mcc: build\.conf_check_0\test.c -> build\.conf_check_0\testbuild\default\test_1.o
+[0mtest.c
+['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\CL.exe', '/TC', '/W3', '/nologo', '/IC:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\INCLUDE', '/IC:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\include', '/I../zlib', '/I..\\common', '/DWIN32', '..\\test.c', '/c', '/Fodefault\\test_1.o']
+[2/2] [33mcc_link: build\.conf_check_0\testbuild\default\test_1.o -> build\.conf_check_0\testbuild\default\testprog.exe
+[0m['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\LINK.exe', 'default\\test_1.o', '/OUT:C:\\Users\\Sarah\\Documents\\GitHub\\pyinstaller\\bootloader\\build\\.conf_check_0\\testbuild\\default\\testprog.exe', '/NOLOGO', '/MANIFEST', '/LIBPATH:C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\LIB', '/LIBPATH:C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\lib', 'kernel32.lib']
+yes
+
+----------------------------------------
+Checking for library ws2_32
+==>
+
+int main() {
+	return 0;
+}
+
+<==
+[1/2] [32mcc: build\.conf_check_0\test.c -> build\.conf_check_0\testbuild\default\test_1.o
+[0mtest.c
+['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\CL.exe', '/TC', '/W3', '/nologo', '/IC:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\INCLUDE', '/IC:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\include', '/I../zlib', '/I..\\common', '/DWIN32', '..\\test.c', '/c', '/Fodefault\\test_1.o']
+[2/2] [33mcc_link: build\.conf_check_0\testbuild\default\test_1.o -> build\.conf_check_0\testbuild\default\testprog.exe
+[0m['C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\BIN\\LINK.exe', 'default\\test_1.o', '/OUT:C:\\Users\\Sarah\\Documents\\GitHub\\pyinstaller\\bootloader\\build\\.conf_check_0\\testbuild\\default\\testprog.exe', '/NOLOGO', '/MANIFEST', '/LIBPATH:C:\\Program Files\\Microsoft Visual Studio 9.0\\VC\\LIB', '/LIBPATH:C:\\Program Files\\Microsoft SDKs\\Windows\\v6.0A\\lib', 'ws2_32.lib']
+yes

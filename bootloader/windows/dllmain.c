@@ -38,7 +38,7 @@
 #include "pyi_pythonlib.h"
 #include "pyi_launch.h"  // callSimpleEntryPoint
 #include "utils.h"  // CreateActContext, ReleaseActContext
-
+#include "pyi_utils.h"
 
 
 HINSTANCE gPythoncom = 0;
@@ -52,17 +52,33 @@ int launch(ARCHIVE_STATUS *status, char const * archivePath, char  const * archi
 	int loadedNew = 0;
 	char pathnm[PATH_MAX];
 
+	char MEIPASS2[PATH_MAX];
+	char cmd[PATH_MAX];
+	char tmp[PATH_MAX];
+	char *extractionpath = NULL;
+
     VS("START");
 	strcpy(pathnm, archivePath);
 	strcat(pathnm, archiveName);
-    /* Set up paths */
-    if (pyi_arch_set_paths(status, archivePath, archiveName))
-        return -1;
-	VS("Got Paths");
+    
     /* Open the archive */
-    if (pyi_arch_open(status))
+    if (pyi_arch_setup(status,archivePath,archiveName))
         return -1;
 	VS("Opened Archive");
+	extractionpath = pyi_getenv("_MEIPASS2");
+
+    VS("LOADER: _MEIPASS2 is %s\n", (extractionpath ? extractionpath : "NULL"));
+
+	#ifdef WIN32
+    /* On Windows use single-process for --onedir mode. */
+    if (!extractionpath && !pyi_launch_need_to_extract_binaries(status)) {
+        VS("LOADER: No need to extract files to run; setting extractionpath to homepath\n");
+        extractionpath = archivePath;
+        strcpy(MEIPASS2, archivePath);
+        pyi_setenv("_MEIPASS2", MEIPASS2); //Bootstrap sets sys._MEIPASS, plugins rely on it
+    }
+	#endif
+
     /* Load Python DLL */
     if (pyi_pylib_attach(status, &loadedNew))
         return -1;
@@ -125,11 +141,15 @@ int launch(ARCHIVE_STATUS *status, char const * archivePath, char  const * archi
 }
 void startUp()
 {
-	ARCHIVE_STATUS *archive_status;
+	ARCHIVE_STATUS *archive_status = NULL;
 	char thisfile[PATH_MAX];
 	char *p;
 	int len;
-	memset(archive_status, 0, sizeof(ARCHIVE_STATUS *));
+	archive_status = (ARCHIVE_STATUS *) calloc(1,sizeof(ARCHIVE_STATUS));
+    if (archive_status == NULL) {
+        FATALERROR("Cannot allocate memory for ARCHIVE_STATUS\n");
+        return -1;
+    }
 	
 	if (!GetModuleFileNameA(gInstance, thisfile, PATH_MAX)) {
 		FATALERROR("System error - unable to load!");
