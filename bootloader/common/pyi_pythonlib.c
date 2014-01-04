@@ -224,6 +224,9 @@ int pyi_pylib_start_python(ARCHIVE_STATUS *status, int argc, char *argv[])
     }
 
 	strcpy(tmp, status->homepath);
+	if (tmp[strlen(tmp)-1] == '\\'){
+		tmp[strlen(tmp)-1] = 0;
+	}
 	sprintf(cmd, "sys.path.append(r\"%s\")", tmp);
 	PI_PyRun_SimpleString (cmd);
 

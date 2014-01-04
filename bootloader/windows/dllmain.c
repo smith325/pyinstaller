@@ -109,6 +109,13 @@ int launch(ARCHIVE_STATUS *status, char const * archivePath, char  const * archi
 
 	/* a signal to scripts */
 	PI_PyRun_SimpleString("import sys;sys.frozen='dll'\n");
+
+	strcpy(tmp,status->homepath);
+	if (tmp[strlen(tmp)-1] == '\\'){
+		tmp[strlen(tmp)-1] = 0;
+	}
+	sprintf(cmd,"sys._MEIPASS=r\"%s\"",tmp);
+	PI_PyRun_SimpleString(cmd);
 	VS("set sys.frozen");
 	/* Create a 'frozendllhandle' as a counterpart to
 	   sys.dllhandle (which is the Pythonxx.dll handle)
@@ -184,5 +191,6 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 }
 
 void sayHi(){
-	  PI_PyRun_SimpleString("print('hello world')");
+	PI_PyRun_SimpleString("print('hello world')");
+	PI_PyRun_SimpleString("import tuf.client.updater");
 }
