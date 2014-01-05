@@ -72,6 +72,9 @@ DECLPROC(Py_NewInterpreter);
 DECLPROC(Py_EndInterpreter);
 DECLPROC(PyInt_AsLong);
 DECLPROC(PySys_SetObject);
+DECLPROC(PyErr_Fetch);
+DECLPROC(PyImport_Import);
+DECLPROC(PyString_FromString);
 
 
 /*
@@ -119,6 +122,10 @@ int pyi_python_map_names(HMODULE dll, int pyvers)
     GETPROC(dll, Py_EndInterpreter);
     GETPROC(dll, PyInt_AsLong);
     GETPROC(dll, PySys_SetObject);
+	GETPROC(dll, PyErr_Fetch);
+	GETPROC(dll, PyImport_Import);
+	GETPROC(dll, PyString_FromString);
+
 
     return 0;
 }

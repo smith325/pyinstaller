@@ -112,6 +112,9 @@ EXTDECLPROC(PyThreadState *, Py_NewInterpreter, (void) );
 EXTDECLPROC(void, Py_EndInterpreter, (PyThreadState *) );
 EXTDECLPROC(long, PyInt_AsLong, (PyObject *) );
 EXTDECLPROC(int, PySys_SetObject, (char *, PyObject *));
+EXTDECLPROC(void, PyErr_Fetch,(PyObject **, PyObject **, PyObject **));
+EXTDECLPROC(PyObject *, PyImport_Import,(PyObject *));
+EXTDECLPROC(PyObject *,PyString_FromString, (const char *));
 
 
 /* 

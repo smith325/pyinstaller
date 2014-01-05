@@ -22,6 +22,7 @@
 #include <string.h>
 
 
+
 /* 
  * Use Sean's Tool Box -- public domain -- http://nothings.org/stb.h. 
  */
@@ -190,7 +191,38 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 	return TRUE; 
 }
 
-void sayHi(){
-	PI_PyRun_SimpleString("print('hello world')");
-	PI_PyRun_SimpleString("import tuf.client.updater");
+
+PyObject *configDict = NULL;
+PyObject *ptype, *pvalue, *ptraceback;
+int _fileLength;
+
+int Py_TUF_configure(char* tuf_intrp_json, char* p_repo_dir, char* p_ssl_cert_dir) {
+    PyObject *moduleName;
+    PyObject *tufInterMod;
+
+	/* import tuf module into the interpreter ~ import tuf.interposition */
+	moduleName = PI_PyString_FromString( "tuf.interposition" );
+	tufInterMod = PI_PyImport_Import( moduleName );
+	if ( tufInterMod == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    //PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return 0;
+	}
+	Py_XDECREF( moduleName );
+	
+	/* python equivalent ~ tuf.interposition.configure( tuf_intrp_json, p_repo_dir, p_ssl_cert_dir ) */
+	
+	configDict = PI_PyObject_CallMethod( tufInterMod, (char *)"configure", "(sss)", 
+									  tuf_intrp_json, p_repo_dir, p_ssl_cert_dir );
+	if ( configDict == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    //PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return 0;
+	}
+	Py_XDECREF( tufInterMod );
+	
+	printf( "**Protected by TUF**\n" );
+	return 1;
 }
