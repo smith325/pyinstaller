@@ -226,3 +226,130 @@ int Py_TUF_configure(char* tuf_intrp_json, char* p_repo_dir, char* p_ssl_cert_di
 	printf( "**Protected by TUF**\n" );
 	return 1;
 }
+
+int Py_TUF_deconfigure(PyObject* tuf_config_obj) {
+    // Init the python env
+	PyObject *tufInterMod;
+	PyObject *configFunction;
+
+	//import TUF module
+	tufInterMod = PI_PyImport_AddModule( "tuf.interposition" );
+	if ( tufInterMod == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return 0;
+	}
+	
+	//get the configure function from tuf.interposition
+	configFunction = PI_PyObject_GetAttrString( tufInterMod, "deconfigure" );
+	if ( configFunction == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return 0;
+	}
+	Py_XDECREF( tufInterMod );
+
+	//calls the config function from the tuf.interposition module
+	//returns a dictionary with the configurations	
+	//we are currently storing this globally 	
+	configDict = PI_PyObject_CallObject( configFunction, tuf_config_obj );
+
+	//Py_XDECREF( arg0 );
+	//Py_XDECREF( arg1 );
+	//Py_XDECREF( arg2 );
+	//Py_XDECREF( args );
+	//Py_XDECREF( configFunction );
+
+	if ( configDict == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return 0;
+	}
+
+	printf( "TUF deconfigured.\n" );
+	return 1;
+}
+char* Py_TUF_urllib_urlretrieve(char* url) {
+	char* fileLocation;
+	PyObject *urllibMod;
+	PyObject* http_resp;
+	PyObject* data;
+
+	/* Load the urllib_tuf module ~ from tuf.interposition import urllib_tuf */
+	urllibMod = PI_PyImport_AddModule( "urllib_tuf" );
+	if ( urllibMod == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return NULL;
+	}
+	
+	/* call ~ http_resp = tuf.interposition.urlretrieve( url ) 
+	   This returns a tuple so I decided to return the /location/filename */
+	http_resp = PI_PyObject_CallMethod( urllibMod, (char *)"urlretrieve", "s", url );
+	if ( http_resp == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return NULL;
+	}	
+	
+	data = PI_PyTuple_GetItem( http_resp, 0 );
+	if ( data == NULL ) {
+		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+    printf("\n"); fflush(stderr);
+		return NULL;
+	}
+	fileLocation = PI_PyString_AsString( data );
+	Py_XDECREF( data );
+	
+	return fileLocation;
+}
+
+char* Py_TUF_urllib_urlopen(char* url) {
+    PyObject *urllibMod;
+	PyObject *http_resp;
+	PyObject *data;
+	PyObject *args;
+	char* resp;
+
+	/* Load the urllib_tuf module ~ from tuf.interposition import urllib_tuf */
+	urllibMod = PI_PyImport_AddModule( "urllib_tuf" );
+	if ( urllibMod == NULL ) {
+		PI_PyErr_Print();
+		return NULL;
+	}
+	
+	/* call ~ http_resp = tuf.interposition.urllib_tuf.urlopen( url ) */
+	http_resp = PI_PyObject_CallMethod( urllibMod, (char *)"urlopen", "(s)", url );
+	if ( http_resp == NULL ) {
+		PI_PyErr_Print();
+		return NULL;
+	}
+	
+	/* call ~ data = http_resp.read() */
+	data = PI_PyObject_CallMethod( http_resp, (char *)"read" , NULL );
+	if ( data == NULL ) {
+		PI_PyErr_Print();
+		return NULL;
+	}
+	Py_XDECREF( http_resp );
+	
+    args = PI_PyTuple_New( 1 );
+	PI_PyTuple_SetItem(args, 0, data);
+    
+	_fileLength = PI_PyString_Size( data );
+
+	if ( !PI_PyArg_ParseTuple( args, "s#", &resp, &_fileLength ) ) {
+		PI_PyErr_Print();
+		return NULL;
+	}
+	Py_XDECREF( data );
+
+    // Return the file
+	return resp;
+}

@@ -75,6 +75,13 @@ DECLPROC(PySys_SetObject);
 DECLPROC(PyErr_Fetch);
 DECLPROC(PyImport_Import);
 DECLPROC(PyString_FromString);
+DECLPROC(PyObject_GetAttrString);
+DECLPROC(PyObject_Print);
+DECLPROC(PyTuple_GetItem);
+DECLPROC(PyArg_ParseTuple);
+DECLPROC(PyString_Size);
+DECLPROC(PyTuple_SetItem);
+DECLPROC(PyTuple_New);
 
 
 /*
@@ -125,6 +132,13 @@ int pyi_python_map_names(HMODULE dll, int pyvers)
 	GETPROC(dll, PyErr_Fetch);
 	GETPROC(dll, PyImport_Import);
 	GETPROC(dll, PyString_FromString);
+	GETPROC(dll, PyObject_GetAttrString);
+	GETPROC(dll, PyObject_Print);
+	GETPROC(dll, PyTuple_GetItem);
+	GETPROC(dll, PyArg_ParseTuple);
+	GETPROC(dll, PyString_Size);
+	GETPROC(dll, PyTuple_SetItem);
+	GETPROC(dll, PyTuple_New);
 
 
     return 0;

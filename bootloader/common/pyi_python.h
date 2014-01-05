@@ -20,6 +20,8 @@
 #ifndef PYI_PYTHON_H
 #define PYI_PYTHON_H
 
+#define Py_PRINT_RAW    1  
+
 
 /*
  * These macros used to define variables to hold dynamically accessed entry
@@ -115,7 +117,13 @@ EXTDECLPROC(int, PySys_SetObject, (char *, PyObject *));
 EXTDECLPROC(void, PyErr_Fetch,(PyObject **, PyObject **, PyObject **));
 EXTDECLPROC(PyObject *, PyImport_Import,(PyObject *));
 EXTDECLPROC(PyObject *,PyString_FromString, (const char *));
-
+EXTDECLPROC(PyObject *, PyObject_GetAttrString,(PyObject *o, char *attr_name));
+EXTDECLPROC(int, PyObject_Print,(PyObject *o, FILE *fp, int flags));
+EXTDECLPROC(PyObject *,PyTuple_GetItem,(PyObject *,int));
+EXTDECLPROC(int,PyArg_ParseTuple,(PyObject *, const char *, ...));
+EXTDECLPROC(int, PyString_Size,(PyObject *));
+EXTDECLPROC(int, PyTuple_SetItem,(PyObject *,int, PyObject *));
+EXTDECLPROC(PyObject *,PyTuple_New,(int));
 
 /* 
  * Macros for reference counting through exported functions
