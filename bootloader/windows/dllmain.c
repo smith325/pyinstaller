@@ -141,9 +141,9 @@ int launch(ARCHIVE_STATUS *status, char const * archivePath, char  const * archi
 		//PI_PyErr_Clear();
 		VS("Some error occurred");
     }
-	VS("PGL released");
+	//VS("PGL released");
 	// Abandon our thread state.
-	PI_PyEval_ReleaseThread(thisthread);
+	//PI_PyEval_ReleaseThread(thisthread);
     VS("OK.");
     return 0;
 }
@@ -204,9 +204,10 @@ int Py_TUF_configure(char* tuf_intrp_json, char* p_repo_dir, char* p_ssl_cert_di
 	moduleName = PI_PyString_FromString( "tuf.interposition" );
 	tufInterMod = PI_PyImport_Import( moduleName );
 	if ( tufInterMod == NULL ) {
+		printf( "FAIED TO IMPORT TUF.INTERPOSITION\n" );
 		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-    //PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
-    printf("\n"); fflush(stderr);
+		PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+		printf("\n"); fflush(stderr);
 		return 0;
 	}
 	Py_XDECREF( moduleName );
@@ -216,9 +217,10 @@ int Py_TUF_configure(char* tuf_intrp_json, char* p_repo_dir, char* p_ssl_cert_di
 	configDict = PI_PyObject_CallMethod( tufInterMod, (char *)"configure", "(sss)", 
 									  tuf_intrp_json, p_repo_dir, p_ssl_cert_dir );
 	if ( configDict == NULL ) {
+		printf( "FAIED TO GET DICT\n" );
 		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-    //PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
-    printf("\n"); fflush(stderr);
+		PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+		printf("\n"); fflush(stderr);
 		return 0;
 	}
 	Py_XDECREF( tufInterMod );
@@ -235,18 +237,20 @@ int Py_TUF_deconfigure(PyObject* tuf_config_obj) {
 	//import TUF module
 	tufInterMod = PI_PyImport_AddModule( "tuf.interposition" );
 	if ( tufInterMod == NULL ) {
+		printf( "FAIED TO IMPORT TUF.INTERPOSITION\n" );
 		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
-    printf("\n"); fflush(stderr);
+		PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+		printf("\n"); fflush(stderr);
 		return 0;
 	}
 	
 	//get the configure function from tuf.interposition
 	configFunction = PI_PyObject_GetAttrString( tufInterMod, "deconfigure" );
 	if ( configFunction == NULL ) {
+		printf( "FAIED TO GET CONFIG FUNC\n" );
 		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
-    printf("\n"); fflush(stderr);
+		PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+		printf("\n"); fflush(stderr);
 		return 0;
 	}
 	Py_XDECREF( tufInterMod );
@@ -263,9 +267,10 @@ int Py_TUF_deconfigure(PyObject* tuf_config_obj) {
 	//Py_XDECREF( configFunction );
 
 	if ( configDict == NULL ) {
+		printf( "FAIED TO GET CONFIG DICT\n" );
 		PI_PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-    PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
-    printf("\n"); fflush(stderr);
+		PI_PyObject_Print( pvalue, stderr, Py_PRINT_RAW);
+		printf("\n"); fflush(stderr);
 		return 0;
 	}
 
