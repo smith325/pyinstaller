@@ -181,6 +181,9 @@ class FrozenImporter(object):
         return module_loader
 
     def load_module(self, fullname, path=None):
+        return self.load_module_with_alias(fullname, path, fullname)
+
+    def load_module_with_alias(self, fullname, path=None, alias=None):
         """
         PEP-302 loader.load_module() method for the ``sys.meta_path`` hook.
 
@@ -194,7 +197,7 @@ class FrozenImporter(object):
         try:
             # PEP302 If there is an existing module object named 'fullname'
             # in sys.modules, the loader must use that existing module.
-            module = sys.modules.get(fullname)
+            module = sys.modules.get(alias)
 
             # Module not in sys.modules - load it and it to sys.modules.
             if module is None:
@@ -264,15 +267,15 @@ class FrozenImporter(object):
                 # code may (directly or indirectly) import itself; adding it
                 # to sys.modules beforehand prevents unbounded recursion in the
                 # worst case and multiple loading in the best.
-                sys.modules[fullname] = module
+                sys.modules[alias] = module
 
                 # Run the module code.
                 exec(bytecode, module.__dict__)
 
         except Exception:
             # Remove 'fullname' from sys.modules if it was appended there.
-            if fullname in sys.modules:
-                sys.modules.pop(fullname)
+            if alias in sys.modules:
+                sys.modules.pop(alias)
             # TODO Do we need to raise different types of Exceptions for better debugging?
             # PEP302 requires to raise ImportError exception.
             #raise ImportError("Can't load frozen module: %s" % fullname)
